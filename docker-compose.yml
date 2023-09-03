@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+    db:
+        image: postgres:15-alpine
+        container_name: fr_test_task-db
+        volumes:
+            - ./db:/var/lib/postgresql/data
+        restart: unless-stopped
+        ports:
+            - "5433:5432"
+        environment:
+            - DB_NAME=postgres
+            - DB_USER=postgres
+            - DB_PASSWORD=postgres
+            - POSTGRES_HOST_AUTH_METHOD=trust
+    backend:
+        build:
+            context: ./backend/
+            dockerfile: ./Dockerfile
+        image: dev-backend
+        container_name: fr_test_task-backend
+        volumes:
+            - ./backend:/backend
+        restart: always
+        depends_on:
+            - db
+        ports:
+            - "8000:8000"
+        environment:
+            - DB_NAME=postgres
+            - DB_USER=postgres
+            - DB_PASSWORD=postgres
+            - DB_HOST=db
+        secrets:
+            - backend_secrets
+    frontend:
+        build:
+            context: ./frontend/
+            dockerfile: ./Dockerfile
+        image: dev-frontend
+        container_name: fr_test_task-frontend
+        volumes:
+            - ./frontend:/frontend/
+        depends_on:
+            - backend
+        ports:
+            - "3000:3000"
+
+secrets:
+    backend_secrets:
+        file: ./.secrets.json
