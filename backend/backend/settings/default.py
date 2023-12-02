@@ -1,14 +1,13 @@
-import os
 from pathlib import Path
 
-from .secrets import get_secret_variable
+from ..secrets import get_secret_variable
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = get_secret_variable("SECRET_KEY", "")
-DEBUG = True
-ALLOWED_HOSTS = []
+SALT = get_secret_variable("SALT", "")
+DEBUG = get_secret_variable("DEBUG", False)
 
 
 # Application definition
@@ -20,6 +19,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    "django_json_widget",
+    "django_select2",
+
+    "service",
+    "questionnaire",
 ]
 
 MIDDLEWARE = [
@@ -50,19 +55,8 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "backend.wsgi.application"
-
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("DB_NAME", ""),
-        "USER": os.getenv("DB_USER", ""),
-        "PASSWORD": os.getenv("DB_PASSWORD", ""),
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "PORT": os.getenv("DB_PORT", "5432"),
-    }
-}
 
 
 AUTH_PASSWORD_VALIDATORS = [

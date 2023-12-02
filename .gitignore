@@ -7,4 +7,4 @@ env/
 db.sqlite3
 
 .env
-.secrets.json
+backend/backend_secrets

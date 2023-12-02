@@ -9,6 +9,9 @@ python = "3.11.4"
 Django = "4.2.4"
 psycopg2 = "2.9.7"
 ipython = "*"
+djangorestframework = "^3.14.0"
+django-select2 = "^8.1.2"
+django-json-widget = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 
