@@ -1,0 +1,36 @@
+// === colors ==========================================================
+
+$black: #211f14;
+$dark-blue: #2c3e50;
+$light-blue: #42668a;
+$light-gray: #666666;
+$gray: #9f9f9f;
+$white: #ffffff;
+
+
+// === classes =========================================================
+
+.with-border {
+  border: 2px solid $dark-blue;
+  border-radius: 1rem;
+}
+
+.disabled-el {
+  cursor: default;
+  pointer-events: none;
+}
+
+.button-view {
+  color: $white;
+  background-color: $dark-blue;
+  border: 0;
+  padding: 0;
+
+  &:hover {
+    background-color: $light-blue;
+  }
+  &:disabled {
+    @extend .disabled-el;
+    background-color: $gray;
+  }
+}
