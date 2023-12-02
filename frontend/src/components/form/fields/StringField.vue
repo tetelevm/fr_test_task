@@ -32,6 +32,7 @@ export default {
 }
 </script>
 
+
 <template>
   <input
     type="text"
@@ -39,6 +40,7 @@ export default {
     class="field"
  />
 </template>
+
 
 <style scoped lang="scss">
 .field {

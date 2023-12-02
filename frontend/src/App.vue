@@ -7,8 +7,8 @@ export default defineComponent({
     Navbar,
   },
 })
-
 </script>
+
 
 <template>
   <div class="navbar-div">
@@ -18,6 +18,7 @@ export default defineComponent({
     <router-view />
   </div>
 </template>
+
 
 <style lang="scss">
 @import "public/styles";

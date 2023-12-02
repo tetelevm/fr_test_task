@@ -32,15 +32,15 @@ export default {
         return utils.arrayRange(1, this.$props.lastPage + 1)
       }
       if (this.$props.currentPage < 2) {
-        // | (1) 2 ... |
+        // | (1) 2 ...
         return [1, 2]
       }
       if (this.$props.currentPage <= 5) {
-        // | 1 2 (3) 4... |
+        // | 1 2 (3) 4...
         return utils.arrayRange(1, this.$props.currentPage + 2)
       }
 
-      // | 1 2 ... |
+      // | 1 2 ...
       return [1, 2]
     },
     currentInterval() {
@@ -62,10 +62,11 @@ export default {
         return null
       }
       if (this.$props.currentPage > (this.lastPage - 1)) {
-        // ... 8 (9) 10 |
+        // ... 9 (10) |
         return utils.arrayRange(this.$props.lastPage - 1, this.$props.lastPage + 1)
       }
       if (this.$props.currentPage >= (this.lastPage - 4)) {
+        // ... 8 (9) 10 |
         return utils.arrayRange(this.$props.currentPage - 1, this.$props.lastPage + 1)
       }
 
@@ -75,6 +76,7 @@ export default {
   },
 }
 </script>
+
 
 <template>
   <div class="pagination-block">
@@ -130,6 +132,7 @@ export default {
     </a>
   </div>
 </template>
+
 
 <style scoped lang="scss">
 @import "public/styles";

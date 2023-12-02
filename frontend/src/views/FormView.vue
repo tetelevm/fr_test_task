@@ -170,6 +170,7 @@ export default {
 }
 </script>
 
+
 <template>
   <WithLoading
       :isLoading="isLoading"
@@ -226,6 +227,7 @@ export default {
     </Content>
   </WithLoading>
 </template>
+
 
 <style lang="scss">
 @import "public/styles";

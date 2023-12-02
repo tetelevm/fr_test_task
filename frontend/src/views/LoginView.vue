@@ -29,6 +29,7 @@ export default {
 }
 </script>
 
+
 <template>
   <Content>
     <div class="token-form">
@@ -60,6 +61,7 @@ export default {
     </div>
   </Content>
 </template>
+
 
 <style lang="scss">
 @import "public/styles";

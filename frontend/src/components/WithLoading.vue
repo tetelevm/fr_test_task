@@ -1,16 +1,3 @@
-<template>
-  <Content v-if="isLoading">
-    <p class="plain-text">Loading</p>
-  </Content>
-
-  <Content v-else-if="isError">
-    <p class="plain-text">{{ errorText }}</p>
-  </Content>
-
-  <slot v-else></slot>
-</template>
-
-
 <script>
 import Content from "@/components/Content.vue"
 
@@ -35,6 +22,19 @@ export default {
   }
 }
 </script>
+
+
+<template>
+  <Content v-if="isLoading">
+    <p class="plain-text">Loading</p>
+  </Content>
+
+  <Content v-else-if="isError">
+    <p class="plain-text">{{ errorText }}</p>
+  </Content>
+
+  <slot v-else></slot>
+</template>
 
 
 <style scoped lang="scss">

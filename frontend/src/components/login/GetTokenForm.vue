@@ -28,6 +28,7 @@ export default {
 }
 </script>
 
+
 <template>
   <div class="gettoken-block">
       <p>
@@ -56,6 +57,7 @@ export default {
       </div>
     </div>
 </template>
+
 
 <style scoped lang="scss">
 .gettoken-block {

@@ -1,3 +1,10 @@
+<script>
+export default {
+  name: "Content",
+}
+</script>
+
+
 <template>
   <div class="main-content-general">
     <div class="main-content">
@@ -6,11 +13,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Content",
-}
-</script>
 
 <style lang="scss">
 .main-content-general {

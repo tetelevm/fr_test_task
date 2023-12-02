@@ -37,6 +37,7 @@ export default {
 }
 </script>
 
+
 <template>
   <textarea
       v-model="value"
@@ -44,6 +45,7 @@ export default {
       class="field"
   />
 </template>
+
 
 <style scoped lang="scss">
 .field {

@@ -4,6 +4,7 @@ export default {
 }
 </script>
 
+
 <template>
   <div class="home-block">
     <div class="background-image">
@@ -19,6 +20,7 @@ export default {
     </div>
 </div>
 </template>
+
 
 <style scoped lang="scss">
 @import "public/styles";

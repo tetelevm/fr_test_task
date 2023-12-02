@@ -1,5 +1,5 @@
 <script>
-import _ from "lodash"
+// import _ from "lodash"
 
 import TextFiled from "./fields/TextField.vue"
 import StringFiled from "./fields/StringField.vue"
@@ -8,6 +8,12 @@ import MultiFiled from "./fields/MultiField.vue"
 
 export default {
   name: "Question",
+  components: {
+    TextFiled,
+    StringFiled,
+    SingleFiled,
+    MultiFiled,
+  },
   props: {
     modelValue: {
       type: Object,
@@ -35,12 +41,6 @@ export default {
       required: true,
     },
   },
-  components: {
-    TextFiled,
-    StringFiled,
-    SingleFiled,
-    MultiFiled,
-  },
   data() {
     return {
     }
@@ -52,6 +52,7 @@ export default {
   },
 }
 </script>
+
 
 <template>
   <div class="question-block">
