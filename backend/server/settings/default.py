@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django_json_widget",
     "django_select2",
 
+    "server",
     "service",
     "questionnaire",
 ]
@@ -37,7 +38,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "backend.urls"
+ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
@@ -56,7 +57,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = "backend.wsgi.application"
+WSGI_APPLICATION = "server.wsgi.application"
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -75,3 +76,4 @@ USE_TZ = True
 
 
 STATIC_URL = "static/"
+STATIC_ROOT = "static"
