@@ -3,50 +3,77 @@ version: "3.8"
 services:
     db:
         image: postgres:15-alpine
-        container_name: fr_test_task-db
+        container_name: fr-db
         volumes:
-            - ./db:/var/lib/postgresql/data
+            - postgres_data:/var/lib/postgresql/data
         restart: unless-stopped
-        ports:
-            - "5433:5432"
         environment:
             - DB_NAME=postgres
             - DB_USER=postgres
             - DB_PASSWORD=postgres
             - POSTGRES_HOST_AUTH_METHOD=trust
+
     backend:
         build:
             context: ./backend/
             dockerfile: ./Dockerfile
         image: dev-backend
-        container_name: fr_test_task-backend
+        container_name: fr-backend
         volumes:
-            - ./backend:/backend
+            - staticfiles:/backend/static/
         restart: always
         depends_on:
             - db
-        ports:
-            - "8000:8000"
-        environment:
-            - DB_NAME=postgres
-            - DB_USER=postgres
-            - DB_PASSWORD=postgres
-            - DB_HOST=db
+        networks:
+            default:
+                ipv4_address: 192.168.0.3
+        expose:
+            - 8000
         secrets:
             - backend_secrets
+
     frontend:
         build:
             context: ./frontend/
             dockerfile: ./Dockerfile
         image: dev-frontend
-        container_name: fr_test_task-frontend
-        volumes:
-            - ./frontend:/frontend/
+        container_name: fr-frontend
         depends_on:
             - backend
+        networks:
+            default:
+                ipv4_address: 192.168.0.4
+        expose:
+            - 3000
+
+    nginx:
+        build:
+            context: ./nginx/
+            dockerfile: ./Dockerfile
+        image: dev-nginx
+        container_name: fr-nginx
+        volumes:
+            - staticfiles:/static/
         ports:
-            - "3000:3000"
+            - "8080:80"
+        depends_on:
+            - frontend
+        networks:
+            default:
+                ipv4_address: 192.168.0.5
+
+volumes:
+    staticfiles:
+    postgres_data:
+
+networks:
+    default:
+        driver: bridge
+        name: fr_network
+        ipam:
+            config:
+                - subnet: 192.168.0.0/24
 
 secrets:
     backend_secrets:
-        file: ./.secrets.json
+        file: backend/backend_secrets

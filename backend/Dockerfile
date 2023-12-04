@@ -1,4 +1,4 @@
-FROM python:3.11.4 AS base-backend
+FROM python:3.11.6 AS base-backend
 
 # Configure Poetry
 ENV POETRY_VERSION=1.2.0
@@ -18,12 +18,10 @@ COPY pyproject.toml ./
 RUN poetry update
 RUN poetry install
 
-CMD [ "poetry", "run", "python", "manage.py", "migrate"]
-CMD [ "poetry", "run", "python", "manage.py", "collectstatic", "--no-input"]
-COPY . /backend
 
 FROM base-backend as dev-backend
 
 EXPOSE 8000
 
-CMD [ "poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+COPY . /backend
+ENTRYPOINT ["sh", "/backend/entrypoint.sh"]

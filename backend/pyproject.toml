@@ -5,13 +5,15 @@ description = ""
 authors = ["https://github.com/tetelevm"]
 
 [tool.poetry.dependencies]
-python = "3.11.4"
+python = "3.11.6"
 Django = "4.2.4"
 psycopg2 = "2.9.7"
 ipython = "*"
 djangorestframework = "^3.14.0"
 django-select2 = "^8.1.2"
 django-json-widget = "^1.1.1"
+uvicorn = "^0.24.0.post1"
+gunicorn = "21.2.0"
 
 [tool.poetry.dev-dependencies]
 
