@@ -1,4 +1,11 @@
-FROM python:3.11.6 AS base-backend
+FROM python:3.12-slim AS fr-base-backend
+
+RUN apt-get update -q -y
+RUN apt-get install -q -y --no-install-recommends --no-install-suggests \
+    build-essential \
+    gcc \
+    python3-dev \
+    libpq-dev
 
 # Configure Poetry
 ENV POETRY_VERSION=1.2.0
@@ -13,15 +20,20 @@ RUN python3 -m venv $POETRY_VENV \
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
 WORKDIR /backend
-
 COPY pyproject.toml ./
+COPY poetry.lock ./
+
 RUN poetry update
 RUN poetry install
 
 
-FROM base-backend as dev-backend
+FROM fr-base-backend as fr-backend
+
+WORKDIR /backend
+COPY . .
+
+CMD poetry run python3 manage.py migrate --no-input
+CMD poetry run python3 manage.py collectstatic --no-input
 
 EXPOSE 8000
-
-COPY . /backend
-ENTRYPOINT ["sh", "/backend/entrypoint.sh"]
+ENTRYPOINT poetry run gunicorn server.asgi:application --config gunicorn_conf.py

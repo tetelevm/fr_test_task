@@ -1,13 +1,11 @@
-FROM node:20-alpine3.18 as base-frontend
+FROM node:20-alpine as fr-base-frontend
 
 WORKDIR /frontend
 COPY . .
 
 RUN npm install --force
 
-
-FROM base-frontend as dev-frontend
+FROM fr-base-frontend as fr-frontend
 
 EXPOSE 3000
-
-CMD ["npm", "run", "serve"]
+ENTRYPOINT ["npm", "run", "serve"]
