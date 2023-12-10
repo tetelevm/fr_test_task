@@ -27,7 +27,7 @@ RUN poetry update
 RUN poetry install
 
 
-FROM fr-base-backend as fr-backend
+FROM fr-base-backend AS fr-backend
 
 WORKDIR /backend
 COPY . .

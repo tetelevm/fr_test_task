@@ -2,28 +2,35 @@ version: "3.8"
 
 services:
     db:
-        image: postgres:15-alpine
+        build:
+            context: db
+            dockerfile: ./Dockerfile
+        image: fr-db
         container_name: fr-db
         restart: always
         volumes:
-            - postgres_data:/var/lib/postgresql/data
-        environment:
-            - DB_NAME=postgres
-            - DB_USER=postgres
-            - DB_PASSWORD=postgres
-            - POSTGRES_HOST_AUTH_METHOD=trust
+            - ./db/.db_data:/var/lib/postgresql/data
+        env_file:
+            - db/.env
+        networks:
+            default:
+                ipv4_address: 192.168.0.2
 
     backend:
         build:
-            context: ./backend/
+            context: backend
             dockerfile: ./Dockerfile
-        image: dev-backend
+        image: fr-backend
         container_name: fr-backend
         restart: always
         volumes:
+            - ./backend/:/backend/
             - staticfiles:/backend/static/
         depends_on:
             - db
+        env_file:
+            - backend/.env
+            - db/.env
         secrets:
             - backend_secrets
         networks:
@@ -32,10 +39,12 @@ services:
 
     frontend:
         build:
-            context: ./frontend/
+            context: frontend
             dockerfile: ./Dockerfile
-        image: dev-frontend
+        image: fr-frontend
         container_name: fr-frontend
+        volumes:
+            - ./frontend/:/frontend/
         depends_on:
             - backend
         networks:
@@ -44,9 +53,9 @@ services:
 
     nginx:
         build:
-            context: ./nginx/
+            context: nginx
             dockerfile: ./Dockerfile
-        image: dev-nginx
+        image: fr-nginx
         container_name: fr-nginx
         volumes:
             - staticfiles:/static/
@@ -59,13 +68,14 @@ services:
                 ipv4_address: 192.168.0.5
 
 volumes:
+    db_data:
     staticfiles:
-    postgres_data:
 
 networks:
     default:
         name: fr_network
         ipam:
+            driver: default
             config:
                 - subnet: 192.168.0.0/24
 
