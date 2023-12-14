@@ -1,5 +1,6 @@
 version: "3.8"
 
+
 services:
     db:
         build:
@@ -12,9 +13,6 @@ services:
             - ./db/.db_data:/var/lib/postgresql/data
         env_file:
             - db/.env
-        networks:
-            default:
-                ipv4_address: 192.168.0.2
 
     backend:
         build:
@@ -33,9 +31,6 @@ services:
             - db/.env
         secrets:
             - backend_secrets
-        networks:
-            default:
-                ipv4_address: 192.168.0.3
 
     frontend:
         build:
@@ -47,9 +42,6 @@ services:
             - ./frontend/:/frontend/
         depends_on:
             - backend
-        networks:
-            default:
-                ipv4_address: 192.168.0.4
 
     nginx:
         build:
@@ -63,21 +55,12 @@ services:
             - "8080:80"
         depends_on:
             - frontend
-        networks:
-            default:
-                ipv4_address: 192.168.0.5
+
 
 volumes:
     db_data:
     staticfiles:
 
-networks:
-    default:
-        name: fr_network
-        ipam:
-            driver: default
-            config:
-                - subnet: 192.168.0.0/24
 
 secrets:
     backend_secrets:
